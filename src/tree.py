@@ -13,7 +13,10 @@ class Tree:
     while node_array != None:
       child_array = []
       for node in node_array:
-        
+        print(child_array)
+        child = Node(self.get_children(node))
+        child_array.append(child)
+      node_array = list(child_array)
 
   def get_children(self, parent):
     output_list = []
