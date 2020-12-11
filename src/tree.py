@@ -18,7 +18,7 @@ class Tree:
       for node in node_array:
         print('node', node.value)
         children = self.get_children(node.value)
-        print('children', children)
+        print('children', [n.value for n in children])
         child_array += children
       node_array = list(child_array)
     
@@ -26,14 +26,14 @@ class Tree:
     output_list = []
     for pair in self.edges:
       if pair[0] == parent:
-        output_list.append(pair[1])
+        output_list.append(Node(pair[1]))
     return output_list
 
   def get_parents(self, child):
     output_list = []
     for pair in self.edges:
       if pair[1] == child:
-        output_list.append(pair[0])
+        output_list.append(Node(pair[0]))
     return output_list
 
   def get_roots(self, input_list):
