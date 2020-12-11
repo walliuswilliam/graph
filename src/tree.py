@@ -8,6 +8,13 @@ class Tree:
     self.edges = edges
     self.root = self.get_roots(edges)
   
+  def build_from_edges(self):
+    node_array = [self.root]
+    while node_array != None:
+      child_array = []
+      for node in node_array:
+        
+
   def get_children(self, parent):
     output_list = []
     for pair in self.edges:
