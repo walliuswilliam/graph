@@ -1,6 +1,6 @@
 class Node:
-  def __init__(self, data):
-    self.data = data
+  def __init__(self, value):
+    self.value = value
     self.children = None
 
 class Tree:
@@ -10,12 +10,15 @@ class Tree:
   
   def build_from_edges(self):
     node_array = [self.root]
-    while node_array != None:
+    print('root', self.root.value)
+    for num in range(5): #node_array != []:
       child_array = []
+      print('child array', child_array)
       for node in node_array:
-        print(child_array)
-        child = Node(self.get_children(node))
-        child_array.append(child)
+        print('node', node.value)
+        children = self.get_children(node)
+        print('children', children)
+        child_array.append(children)
       node_array = list(child_array)
 
   def get_children(self, parent):
@@ -38,4 +41,4 @@ class Tree:
       if self.get_parents(pair[0]) == []:
         output_list.append(pair[0])
         break
-    return output_list
+    return Node(output_list[0])
