@@ -10,16 +10,12 @@ class Tree:
   
   def build_from_edges(self):
     node_array = [self.root]
-    print('root', self.root.value)
-    print('node_array', [n.value for n in node_array])
-    for num in range(5): #node_array != []:
+    while node_array != []:
       child_array = []
-      print('child array', child_array)
       for node in node_array:
-        print('node', node.value)
         children = self.get_children(node.value)
-        print('children', [n.value for n in children])
         child_array += children
+        node.children = children
       node_array = list(child_array)
     
   def get_children(self, parent):
@@ -43,3 +39,11 @@ class Tree:
         output_list.append(pair[0])
         break
     return Node(output_list[0])
+
+  def nodes_breadth_first():
+    queue = [e]
+    visited = []
+  
+
+  # def nodes_depth_first():
+
