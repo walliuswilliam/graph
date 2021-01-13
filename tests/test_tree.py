@@ -52,5 +52,7 @@ assert [node.value for node in tree.root.children[2].children[1].children[0].chi
 print('passed')
 
 
+print('testing nodes nodes_breadth_first...')
 nodes = tree.nodes_breadth_first()
-assert [node.value for node in nodes] == [e,a,i,g,c,d,b,j,f,k,h]
+assert [node.value for node in nodes] == [e,a,i,g,c,d,b,j,f,k,h], [node.value for node in nodes]
+print('passed')

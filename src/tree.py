@@ -40,10 +40,16 @@ class Tree:
         break
     return Node(output_list[0])
 
-  def nodes_breadth_first():
+  def nodes_breadth_first(self):
     queue = [e]
     visited = []
-  
+    while len(queue) != 0:
+      node = queue[0]
+      queue.remove(node)
+      visited.append(node)
+      for child in self.get_children(node):
+        queue.append(child)
+    return visited
 
   # def nodes_depth_first():
 
