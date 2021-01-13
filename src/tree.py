@@ -41,13 +41,13 @@ class Tree:
     return Node(output_list[0])
 
   def nodes_breadth_first(self):
-    queue = [e]
+    queue = [self.root]
     visited = []
     while len(queue) != 0:
       node = queue[0]
       queue.remove(node)
       visited.append(node)
-      for child in self.get_children(node):
+      for child in node.children:
         queue.append(child)
     return visited
 
