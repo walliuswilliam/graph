@@ -7,9 +7,9 @@ tree = Tree(edges)
 tree.build_from_edges()
 
 
-# print('finding the root...')
-# assert tree.root.value == 'e'
-# print('passed')
+print('finding the root...')
+assert tree.root.value == 'e'
+print('passed')
 
 # print('finding children of "root"...')
 # assert [node.value for node in tree.root.children] == ['g','i','a']
