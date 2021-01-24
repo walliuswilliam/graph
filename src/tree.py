@@ -51,5 +51,14 @@ class Tree:
         queue.append(child)
     return visited
 
-  # def nodes_depth_first():
+  def nodes_depth_first(self):
+    stack = [self.root]
+    visited = []
+    while len(stack) != 0:
+      node = stack[0]
+      stack.remove(node)
+      visited.append(node)
+      for child in node.children:
+        stack.insert(0, child)
+    return visited
 

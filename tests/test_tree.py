@@ -58,6 +58,6 @@ assert [node.value for node in nodes] == ['e','g','i','a','b','c','d','k','f','j
 print('passed')
 
 print('testing nodes_breadth_first...')
-nodes = tree.nodes_breadth_first()
-assert [node.value for node in nodes] == ['e','g','i','a','b','c','d','k','f','j','h']
+nodes = tree.nodes_depth_first()
+assert [node.value for node in nodes] == ['e','a','d','j','f','h','c','k','i','g','b'],[node.value for node in nodes] 
 print('passed')
