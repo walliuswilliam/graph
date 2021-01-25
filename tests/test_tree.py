@@ -2,17 +2,21 @@ import sys
 sys.path.append('src')
 from tree import Tree
 
-edges = [('a','c'), ('e','g'), ('e','i'), ('e','a'), ('g','b'), ('a','d'), ('d','f'), ('f','h'), ('d','j'), ('c','k')]
-tree = Tree(edges)
+node_values = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
+edges = [(0,2), (4,6), (4,8), (4,0), (3,1), (0,3), (3,5), (5,7), (3,9), (3,10)]
+
+# edges = [('a','c'), ('e','g'), ('e','i'), ('e','a'), ('g','b'), ('a','d'), ('d','f'), ('f','h'), ('d','j'), ('c','k')]
+
+tree = Tree(edges, node_values)
 tree.build_from_edges()
 
 
-print('finding the root...')
-assert tree.root.value == 'e'
-print('passed')
+# print('finding the root...')
+# assert tree.root.value == 'e'
+# print('passed')
 
 # print('finding children of "root"...')
-# assert [node.value for node in tree.root.children] == ['g','i','a']
+# assert [node.value for node in tree.root.children] == ['g','i','a'], [node.value for node in tree.root.children]
 # print('passed')
 
 # print('finding children of "a"...')
@@ -54,10 +58,39 @@ print('passed')
 
 print('testing nodes_breadth_first...')
 nodes = tree.nodes_breadth_first()
-assert [node.value for node in nodes] == ['e','g','i','a','b','c','d','k','f','j','h']
+assert {node.value for node in nodes} == {'e','g','i','a','b','c','d','k','f','j','h'}
 print('passed')
 
 print('testing nodes_breadth_first...')
 nodes = tree.nodes_depth_first()
-assert [node.value for node in nodes] == ['e','a','d','j','f','h','c','k','i','g','b'],[node.value for node in nodes] 
+assert {node.value for node in nodes} == {'e','a','d','j','f','h','c','k','i','g','b'}
+print('passed')
+
+
+children = set(tree.root.children)
+
+grandchildren = set([])
+for child in children:
+  grandchildren = grandchildren.union(set(child.children))
+
+great_grandchildren = set([])
+for grandchild in grandchildren:
+  great_grandchildren = great_grandchildren.union(set(grandchild.children))
+
+great_great_grandchildren = set([])
+for great_grandchild in great_grandchildren:
+  great_great_grandchildren = great_great_grandchildren.union(set(great_grandchild.children))
+
+print('testing node indices and values...')
+assert {node.index for node in children} == {0, 8, 6}
+assert {node.value for node in children} == {'a', 'i', 'g'}
+
+assert {node.index for node in grandchildren} == {2, 3}
+assert {node.value for node in grandchildren} == {'c', 'd'}
+
+assert {node.index for node in great_grandchildren} == {1, 9, 5, 10}
+assert {node.value for node in great_grandchildren} == {'b', 'j', 'f', 'k'}
+
+assert {node.index for node in great_great_grandchildren} == {7}
+assert {node.value for node in great_great_grandchildren} == {'h'}
 print('passed')
