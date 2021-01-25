@@ -66,7 +66,7 @@ nodes = tree.nodes_depth_first()
 assert {node.value for node in nodes} == {'e','a','d','j','f','h','c','k','i','g','b'}
 print('passed')
 
-
+print('\nTEST CASE 1')
 children = set(tree.root.children)
 
 grandchildren = set([])
@@ -93,4 +93,45 @@ assert {node.value for node in great_grandchildren} == {'b', 'j', 'f', 'k'}
 
 assert {node.index for node in great_great_grandchildren} == {7}
 assert {node.value for node in great_great_grandchildren} == {'h'}
+print('passed')
+
+
+print('\nTEST CASE 2')
+
+node_values = ['a', 'b', 'a', 'a', 'a', 'b', 'a', 'b', 'a', 'b', 'b']
+edges = [(0,2), (4,6), (4,8), (4,0), (3,1), (0,3), (3,5), (5,7), (3,9), (3,10)]
+
+tree = Tree(edges, node_values)
+tree.build_from_edges()
+
+
+assert tree.root.value == 'a'
+assert tree.root.index == 4
+
+children = set(tree.root.children)
+
+grandchildren = set([])
+for child in children:
+  grandchildren = grandchildren.union(set(child.children))
+
+great_grandchildren = set([])
+for grandchild in grandchildren:
+  great_grandchildren = great_grandchildren.union(set(grandchild.children))
+
+great_great_grandchildren = set([])
+for great_grandchild in great_grandchildren:
+  great_great_grandchildren = great_great_grandchildren.union(set(great_grandchild.children))
+
+print('testing node indices and values...')
+assert {node.index for node in children} == {0, 8, 6}
+assert {node.value for node in children} == {'a', 'a', 'a'}
+
+assert {node.index for node in grandchildren} == {2, 3}
+assert {node.value for node in grandchildren} == {'a', 'a'}
+
+assert {node.index for node in great_grandchildren} == {1, 9, 5, 10}
+assert {node.value for node in great_grandchildren} == {'b', 'b', 'b', 'b'}
+
+assert {node.index for node in great_great_grandchildren} == {7}
+assert {node.value for node in great_great_grandchildren} == {'b'}
 print('passed')
