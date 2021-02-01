@@ -36,7 +36,7 @@ class Graph:
   def get_nodes_depth_first(self, starting_index):
     stack = [starting_index]
     visited = []
-    while len(stack) != len(self.nodes):
+    while len(visited) != len(self.nodes):
       node = stack[0]
       stack.remove(node)
       visited.append(node)
