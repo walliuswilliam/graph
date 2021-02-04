@@ -16,6 +16,6 @@ print('passed')
 
 df = graph.get_nodes_depth_first(2)
 
-print('testing breadth first search...')
+print('testing depth first search...')
 assert df == [2, 1, 4, 5, 3, 0], df
 print('passed')

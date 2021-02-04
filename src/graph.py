@@ -3,6 +3,8 @@ class Node:
     self.index = index
     self.value = None
     self.neighbors = None
+    self.previous = None
+    self.distance = None
 
 class Graph:
   def __init__(self, edges, max_index):
