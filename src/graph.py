@@ -16,59 +16,75 @@ class Graph:
       if b > max_index:
         max_index = b
     self.nodes = [Node(i) for i in range(max_index+1)]
+    self.set_neighbors()
 
-
-  def build_from_edges(self):
+  def set_neighbors(self):
     for node in self.nodes:
       neighbor_list = []
       for pair in self.edges:
         if pair[0] == node.index:
-          neighbor_list.append(Node(pair[1]))
+          neighbor_list.append(self.nodes[pair[1]])
         if pair[1] == node.index:
-          neighbor_list.append(Node(pair[0]))
+          neighbor_list.append(self.nodes[pair[0]])
       node.neighbors = neighbor_list
 
+
   def get_nodes_breadth_first(self, starting_index):
-    queue = [starting_index]
+    queue = [self.nodes[starting_index]]
     visited = []
     while len(visited) != len(self.nodes):
       node = queue[0]
       queue.remove(node)
       visited.append(node)
-      for neighbor in [node.index for node in self.nodes[node].neighbors]:
+      for neighbor in node.neighbors:
         if neighbor not in visited and neighbor not in queue:
           queue.append(neighbor)
-    return [self.nodes[i] for i in visited]
+    return visited
 
   def get_nodes_depth_first(self, starting_index):
-    stack = [starting_index]
+    stack = [self.nodes[starting_index]]
     visited = []
     while len(visited) != len(self.nodes):
       node = stack[0]
       stack.remove(node)
       visited.append(node)
-      for neighbor in [node.index for node in self.nodes[node].neighbors]:
+      for neighbor in node.neighbors:
         if neighbor not in visited and neighbor not in stack:
           stack.insert(0, neighbor)
-    return [self.nodes[i] for i in visited]
+    return visited
 
-  def set_breadth_first_distance_and_previous(self, starting_node_index):
-    queue = [starting_node_index]
+
+  def set_breadth_first_distance_and_previous(self, starting_index):
+    for node in self.nodes:
+      node.distance = 0
+    queue = [self.nodes[starting_index]]
     visited = []
     while len(visited) != len(self.nodes):
       node = queue[0]
       queue.remove(node)
       visited.append(node)
-      for neighbor in [node.index for node in self.nodes[node].neighbors]:
+      for neighbor in node.neighbors:
         if neighbor not in visited and neighbor not in queue:
-          neighbor.previous = node
-          node.distance += 1
           queue.append(neighbor)
+          neighbor.previous = node
+          neighbor.distance = node.distance + 1
     return visited
 
-  
+
   def calc_distance(self, starting_node_index, ending_node_index):
     nodes = self.set_breadth_first_distance_and_previous(starting_node_index)
-    return nodes[ending_node_index].distance
+    return self.nodes[ending_node_index].distance
+
+
+  def calc_shortest_path(self, starting_node_index, ending_node_index):
+    nodes = self.set_breadth_first_distance_and_previous(starting_node_index)
+    node = self.nodes[ending_node_index]
+    shortest_path = [node]
+
+    while (node != self.nodes[starting_node_index]):
+      node = node.previous
+      shortest_path.append(node)
+    return [node.index for node in reversed(shortest_path)]
+
 
 
