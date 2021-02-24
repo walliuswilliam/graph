@@ -34,7 +34,7 @@ class Graph:
       node.distance = 0
     queue = [self.nodes[starting_index]]
     visited = []
-    while len(visited) != len(self.nodes):
+    while len(queue) != 0:
       node = queue[0]
       queue.remove(node)
       visited.append(node)
@@ -48,7 +48,7 @@ class Graph:
   def get_nodes_depth_first(self, starting_index):
     stack = [self.nodes[starting_index]]
     visited = []
-    while len(visited) != len(self.nodes):
+    while len(stack) != 0:
       node = stack[0]
       stack.remove(node)
       visited.append(node)

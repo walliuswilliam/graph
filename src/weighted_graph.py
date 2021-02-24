@@ -1,3 +1,7 @@
+import sys
+sys.path.append('src')
+from graph import Graph
+
 class Node:
   def __init__(self, index):
     self.index = index
@@ -26,7 +30,7 @@ class WeightedGraph:
           neighbor_list.append(self.nodes[pair[0]])
       node.neighbors = neighbor_list
 
-  def calc_distance(self, starting_node_index, ending_node_index):
+  def get_d_values(self, starting_node_index, ending_node_index):
     current_node = self.nodes[starting_node_index]
     for node in self.nodes:
       node.d_value = 9999999999
@@ -55,7 +59,24 @@ class WeightedGraph:
 
       current_node = lowest_node
 
+
+  def calc_distance(self, starting_node_index, ending_node_index):
+    self.get_d_values(starting_node_index, ending_node_index)
     return self.nodes[ending_node_index].d_value
+
+  def calc_shortest_path(self, start_node, end_node):
+    edge_list = []
+    self.get_d_values(start_node, end_node)
+
+    for (a,b) in self.weights.keys():
+      difference = abs(self.nodes[a].d_value - self.nodes[b].d_value)
+      if difference == self.weights[(a,b)]:
+        edge_list.append((a,b))
+        
+    graph = Graph(edge_list)
+    return graph.calc_shortest_path(start_node, end_node)
+
+
 
 
 
