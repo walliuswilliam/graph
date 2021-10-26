@@ -13,10 +13,8 @@ class WeightedGraph:
     self.weights = weights
     max_index = 0
     for (a,b) in self.weights.keys():
-      if a > max_index:
-        max_index = a
-      if b > max_index:
-        max_index = b
+      if a > max_index or b > max_index:
+        max_index = max(a,b)
     self.nodes = [Node(i) for i in range(max_index+1)]
     self.set_neighbors()
 
@@ -52,7 +50,7 @@ class WeightedGraph:
 
       for node in self.nodes:
         if node not in visited:
-          if lowest_node == None:
+          if lowest_node is None:
             lowest_node = node
           elif node.d_value < lowest_node.d_value:
             lowest_node = node
@@ -75,13 +73,3 @@ class WeightedGraph:
         
     graph = Graph(edge_list)
     return graph.calc_shortest_path(start_node, end_node)
-
-
-
-
-
-    
-        
-
-
-

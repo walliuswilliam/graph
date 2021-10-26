@@ -11,10 +11,8 @@ class Graph:
     self.edges = edges
     max_index = 0
     for (a,b) in edges:
-      if a > max_index:
-        max_index = a
-      if b > max_index:
-        max_index = b
+      if a > max_index or b > max_index:
+        max_index = max(a,b)
     self.nodes = [Node(i) for i in range(max_index+1)]
     self.set_neighbors()
 
